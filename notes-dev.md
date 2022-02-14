@@ -84,7 +84,7 @@ const store = createStore(counterSlice.reducer);
 
 1. Migrate everything to redux toolkit
 2. createSlices automatically creates unique actions identifiers for our reducers, to access them we use
-   ` counterSlice.actions. `
+   `counterSlice.actions.`
    the autocomplete will show that there are methods with the same names as the names of the methods created inside the reducers property of the createSlice function config object
 
 Those methods are <strong>action creators</strong> that have the type preconfigured, and then we can export those methods and access them in the component that needs to dispatch those actions
@@ -92,3 +92,14 @@ Those methods are <strong>action creators</strong> that have the type preconfigu
 ```
 export const counterActions = counterSlice.actions
 ```
+
+### Redux and side effects 🛸
+
+1. The reducer functions must be pure, side-effect free and synchronous
+2. The side effects tasks can be executed in inside the components or inside <strong>action creators</strong>
+
+#### Handling Async Tasks
+
+#### Where to put our code
+
+### Redux Devtools
