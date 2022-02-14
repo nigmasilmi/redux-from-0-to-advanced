@@ -31,5 +31,64 @@ export default connect()(TheComponent)
 
 ### Adding new pieces of state: the long way
 
-1. We can add another piece of state by adding it to the initial state and then to all the returned objects in the reducer
-2. Remember that the reducer substitutes the state, it does not merge it, so, in the returned state object, we must take into account the other pieces of state
+    1. We can add another piece of state by adding it to the initial state and then to all the returned objects in the reducer
+    2. Remember that the reducer substitutes the state, it does not merge it, so, in the returned state object, we must take into account the other pieces of state
+    3. Remember also NEVER MUTATE THE STATE, always overwrite the state object with a new one
+
+### Redux Toolkit
+
+[Hello Redux Toolkit](https://redux-toolkit.js.org/)
+
+#### Configuration
+
+`npm install @reduxjs/toolkit `
+
+### Adding Slices 🍕
+
+1. In the store, `import {createSlice} from '@reduxjs/toolkit'`
+2. Call the function with its arguments
+   1. the name of the slice
+   2. the initialState
+   3. the reducers that this slice needs
+      3.1 add the methods with a significant name
+      3.2 Every method receives the latest state
+      3.3 The methods will execute depending of the action that is coming to the reducer, therefore the if checks can be ommited
+      3.4 In the body of the reducers methods, we can perform actions that mutates the state, why? because internally this mutation is noted by the package and then clones the state, checks also which parts are been modified and does all the heavy lifting for us. 🤔
+
+#### How to make the Reducer aware of the slices?
+
+1. Use the returned value from createSlice()
+
+```
+const counterSlice = createSlice({......})
+```
+
+2. Access the reducer method of it and replace the reducer that is needed for the store creation:
+
+```
+const store = createStore(counterSlice.reducer);
+```
+
+3. But if we have a lot of slices...?
+   3.1 Use the combineReducers from redux or
+   3.2 Use configureStore from @reduxjs/toolkit. This function creates a store and combines reducers
+   ```
+   const store = configureStore({
+       counter: counterSlice.reducer,
+       toggler: togglerSlice.reducer,
+       whatever: whateverSlice.reducer
+   });
+   ```
+
+#### How to dispatch actions using slices?
+
+1. Migrate everything to redux toolkit
+2. createSlices automatically creates unique actions identifiers for our reducers, to access them we use
+   ` counterSlice.actions. `
+   the autocomplete will show that there are methods with the same names as the names of the methods created inside the reducers property of the createSlice function config object
+
+Those methods are <strong>action creators</strong> that have the type preconfigured, and then we can export those methods and access them in the component that needs to dispatch those actions
+
+```
+export const counterActions = counterSlice.actions
+```
