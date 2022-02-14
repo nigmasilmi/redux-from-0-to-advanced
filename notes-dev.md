@@ -103,3 +103,10 @@ export const counterActions = counterSlice.actions
 #### Where to put our code
 
 ### Redux Devtools
+
+Design notes
+
+1. store with items, cart
+2. item = {name:'skjsl', qty:number}
+3. cart reducer with add, remove
+4. Cart button to show and hide it
