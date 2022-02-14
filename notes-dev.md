@@ -28,3 +28,8 @@ export default connect()(TheComponent)
     5. The First one will map the state to props, takes the state, and returns an object where the keys are will be available as props in the receiver components and the values will be the logic of drilling in the state
     6. The Second one will help to store dispatch functions in props, that when executed will dispatch an action. This function takes the dispatch function automatically and return an object where the keys are prop names and their value is another function in which we call dispatch with the action
     7. The connect function also creates a subscription to the store
+
+### Adding new pieces of state: the long way
+
+1. We can add another piece of state by adding it to the initial state and then to all the returned objects in the reducer
+2. Remember that the reducer substitutes the state, it does not merge it, so, in the returned state object, we must take into account the other pieces of state
