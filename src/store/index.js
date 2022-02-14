@@ -15,6 +15,13 @@ const counterReducer = (state = { count: 0 }, action) => {
     };
   }
 
+  // expecting a payload
+  if (action.type === 'increase') {
+    return {
+      count: state.count + action.amount,
+    };
+  }
+
   return {
     count: state.count,
   };
