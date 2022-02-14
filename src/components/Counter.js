@@ -5,20 +5,20 @@ import { counterActions } from '../store';
 // import { connect } from 'react-redux';
 
 const Counter = () => {
-  const count = useSelector((state) => state.count);
-  const show = useSelector((state) => state.showCounter);
+  const count = useSelector((state) => state.counter.count);
+  const show = useSelector((state) => state.counter.showCounter);
   const dispatch = useDispatch();
 
   const toggleCounterHandler = () => {
-    dispatch(counterActions.toggleCounter);
+    dispatch(counterActions.toggleCounter(null));
   };
 
   const decrementHandler = () => {
-    dispatch(counterActions.decrement);
+    dispatch(counterActions.decrement(null));
   };
 
   const incrementHandler = () => {
-    dispatch(counterActions.increment);
+    dispatch(counterActions.increment(null));
   };
 
   const increaseHandler = () => {
