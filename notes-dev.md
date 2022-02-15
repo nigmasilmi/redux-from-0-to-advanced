@@ -135,6 +135,12 @@ How is the Option 1?
 - a better solution to manage asynchronous code
 - dispatch action from the component -> implement the logic in the reducer -> to synch the data in the backend send the request from the component or a different one
 
+### Thunks 📣‼️
+
+- is a function that delays an action until later
+- we can create an action creator as a thunk
+- So, a thunk is an action creator function than does not return the action itself but another function which eventually returns the action
+
 ##### Redux Devtools
 
 Design notes
