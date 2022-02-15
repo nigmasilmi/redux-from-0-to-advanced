@@ -98,15 +98,43 @@ export const counterActions = counterSlice.actions
 1. The reducer functions must be pure, side-effect free and synchronous
 2. The side effects tasks can be executed in inside the components or inside <strong>action creators</strong>
 
-#### Handling Async Tasks
+z
 
-#### Where to put our code
+##### Using Firebase as backend
 
-### Redux Devtools
+1. Add project
+2. Use Realtime Database > create DB > start in test mode
+3. Add significant-name.json to the end of the endpoint in the requests from the component
+
+##### Where to put our code
+
+Option 1. Execute in the component --- code duplication, lack of control and maintenance 😵‍💫 <br />
+Option 2. Inside action creators
+Consider this:
+
+1. Connect Redux with asynchronous code and side effects
+2. Because reducers must be pure, synchronous and side-effect free
+
+How is the Option 1?
+
+- from the component, not only dispatch the action, but also make a request to the backend to send the data.
+
+  - Whats wrong with this?
+
+    - the logic to guide the state update is in the reducer, not in the component nor the backend
+    - if we put the logic in the component and not in the reducer, be aware that not-mutable state must be managed with attention.
+    - After the logic is applied, an action is dispatched with the newly created pieces of state
+    - The real problem is, that if this logic is needed in other components, there could be code duplication, but if we extract that logic into a helper funcion, that data transformation wouldbe (in both cases) outside of the reducer, and therefore we wouldn't be using Redux in all its capacity, that would be a sub-optimal implementation of Redux
+
+  - Fat action creators 🥐 vs Fat components 🥓 vs Fat reducers 🍩
+    - If we handle just synchronous data transformations (without side effects) ==>> Prefer a Fat 🍩 Reducer
+    - If we have an async code or code with side-effects to handle the logic ===>> Prefer a Fat 🥐 action creator or a Fat component 🥓
+
+### useEffect & Redux 🐜💨
+
+- a better solution to manage asynchronous code
+- dispatch action from the component -> implement the logic in the reducer -> to synch the data in the backend send the request from the component or a different one
+
+##### Redux Devtools
 
 Design notes
-
-1. store with items, cart
-2. item = {name:'skjsl', qty:number}
-3. cart reducer with add, remove
-4. Cart button to show and hide it
