@@ -3,17 +3,24 @@ import { createSlice } from '@reduxjs/toolkit';
 const cartInitialState = {
   cartItems: [],
   totalQuantity: 0,
+  changed: false,
 };
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState: cartInitialState,
   reducers: {
+    replaceCart(state, action) {
+      state.totalQuantity = action.payload.totalQuantity;
+      state.cartItems = action.payload.cartItems;
+    },
     addItemToCart(state, action) {
       // in all cases add 1 to the totalQuantity
       state.totalQuantity++;
+      state.changed = true;
       const newItem = action.payload;
       // is it part of the cart already?
+      // state.cartItems = [].push(newItem);
       const existingItem = state.cartItems.find((ele) => ele.id === newItem.id);
 
       if (!existingItem) {
@@ -28,11 +35,6 @@ const cartSlice = createSlice({
         existingItem.quantity++;
         existingItem.totalPrice = existingItem.totalPrice + newItem.price;
       }
-      // const newTotalQuantity = state.cartItems.reduce(
-      //   (p, c) => p + c.totalQuantity,
-      //   0
-      // );
-      // state.totalQuantity = newTotalQuantity;
     },
     removeItemFromCart(state, action) {
       // in all cases subtract 1 to the totalQuantity
@@ -40,6 +42,7 @@ const cartSlice = createSlice({
       state.totalQuantity > 0
         ? state.totalQuantity--
         : (state.totalQuantity = 0);
+      state.changed = true;
       const id = action.payload;
       // is there just one of the item in the cart?
       const existingItem = state.cartItems.find((item) => item.id === id);

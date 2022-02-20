@@ -1,6 +1,6 @@
 import { Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { sendCartData } from './store/cart-actions';
+import { fetchCartData, sendCartData } from './store/cart-actions';
 import Cart from './components/Cart/Cart';
 import Layout from './components/Layout/Layout';
 import Products from './components/Shop/Products';
@@ -16,6 +16,9 @@ function App() {
   // this component is re-evaluated and the cart contains the latest state
   const cart = useSelector((state) => state.cart);
   const notification = useSelector((state) => state.ui.notification);
+  useEffect(() => {
+    dispatch(fetchCartData());
+  }, [dispatch]);
 
   // when the state changes, update it in the backend
   useEffect(() => {
@@ -23,7 +26,9 @@ function App() {
       isInitial = false;
       return;
     }
-    dispatch(sendCartData(cart));
+    if (cart.changed) {
+      dispatch(sendCartData(cart));
+    }
   }, [cart, dispatch]);
 
   return (

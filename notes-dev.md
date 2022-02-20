@@ -141,6 +141,8 @@ How is the Option 1?
 - we can create an action creator as a thunk
 - So, a thunk is an action creator function than does not return the action itself but another function which eventually returns the action
 
+- As currently implemented - see commit b510154 - the functions are executed correctly, however ther is a warning in the console `Uncaught (in promise) Error: Actions must be plain objects. Instead, the actual type was: 'undefined'. You may need to add middleware to your store setup to handle dispatching other values, such as 'redux-thunk' to handle dispatching functions. See https://redux.js.org/tutorials/fundamentals/part-4-store#middleware and https://redux.js.org/tutorials/fundamentals/part-6-async-logic#using-the-redux-thunk-middleware for examples.` => Solution coming soon
+
 ##### Redux Devtools
 
 Design notes
