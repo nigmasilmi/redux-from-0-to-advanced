@@ -48,7 +48,7 @@ export const fetchCartData = () => {
         })
       );
     }
-    dispatch();
+    // dispatch();
   };
 };
 
@@ -97,6 +97,6 @@ export const sendCartData = (cart) => {
       );
     }
 
-    dispatch();
+    // dispatch();
   };
 };

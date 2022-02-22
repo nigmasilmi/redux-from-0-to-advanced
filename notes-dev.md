@@ -143,6 +143,21 @@ How is the Option 1?
 
 - As currently implemented - see commit b510154 - the functions are executed correctly, however ther is a warning in the console `Uncaught (in promise) Error: Actions must be plain objects. Instead, the actual type was: 'undefined'. You may need to add middleware to your store setup to handle dispatching other values, such as 'redux-thunk' to handle dispatching functions. See https://redux.js.org/tutorials/fundamentals/part-4-store#middleware and https://redux.js.org/tutorials/fundamentals/part-6-async-logic#using-the-redux-thunk-middleware for examples.` => Solution coming soon
 
+SOLUTION: the action creators where calling an additional dispatch() from inside without any action or whatsoever, that was a mistake, the code was commented and not removed in order to remember the learning in that mistake.
+
 ##### Redux Devtools
+
+1. Install browser extension
+2. To configure the project using redux-toolkit:
+
+```
+const store = configureStore({
+  reducer: {
+    cart: cartSlice.reducer,
+    ui: uiSlice.reducer,
+  },
+  devTools: true,
+});
+```
 
 Design notes
