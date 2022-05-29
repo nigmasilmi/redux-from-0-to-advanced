@@ -1,51 +1,7 @@
-import { Fragment, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchCartData, sendCartData } from './store/cart-actions';
-import Cart from './components/Cart/Cart';
-import Layout from './components/Layout/Layout';
-import Products from './components/Shop/Products';
-import Notification from './components/UI/Notification';
-
-let isInitial = true;
+import Counter from "./components/Counter";
 
 function App() {
-  const dispatch = useDispatch();
-  const showCart = useSelector((state) => state.ui.cartIsVisible);
-  // get hold of the state
-  // useSelector creates a subscription to Redux, so, when the state changes
-  // this component is re-evaluated and the cart contains the latest state
-  const cart = useSelector((state) => state.cart);
-  const notification = useSelector((state) => state.ui.notification);
-  useEffect(() => {
-    dispatch(fetchCartData());
-  }, [dispatch]);
-
-  // when the state changes, update it in the backend
-  useEffect(() => {
-    if (isInitial) {
-      isInitial = false;
-      return;
-    }
-    if (cart.changed) {
-      dispatch(sendCartData(cart));
-    }
-  }, [cart, dispatch]);
-
-  return (
-    <Fragment>
-      {notification && (
-        <Notification
-          title={notification.title}
-          message={notification.message}
-          status={notification.status}
-        />
-      )}
-      <Layout>
-        {showCart && <Cart />}
-        <Products />
-      </Layout>
-    </Fragment>
-  );
+  return <Counter />;
 }
 
 export default App;

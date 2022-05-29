@@ -1,14 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit';
-import ThunkMiddleware from 'redux-thunk';
-import cartSlice from './cart';
-import uiSlice from './ui';
+import { createStore } from "redux";
 
-const store = configureStore({
-  reducer: {
-    cart: cartSlice.reducer,
-    ui: uiSlice.reducer,
-  },
-  devTools: true,
-});
+const counterReducer = (state = { counter: 0 }, action) => {
+  if (action.type === "increment") {
+    return { counter: state.counter + 1 };
+  }
+
+  if (action.type === "decrement") {
+    return { counter: state.counter - 11 };
+  }
+  return state;
+};
+
+const store = createStore(counterReducer);
 
 export default store;
