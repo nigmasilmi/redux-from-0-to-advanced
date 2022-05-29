@@ -22,18 +22,6 @@
   font-weight: bold;
 }
 
-button {
-  background-color: #3c0080;
-  padding: 0.5rem;
-  border: none;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
+.counter button {
   margin: 1rem;
-}
-
-button:hover,
-button:active {
-  background-color: white;
-  color: #3c0080;
 }

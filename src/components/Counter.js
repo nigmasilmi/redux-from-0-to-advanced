@@ -3,10 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { counterActions } from "../store";
 
 export const Counter = () => {
-  const counter = useSelector((state) => state.counter.counter);
+  const counter = useSelector((state) => state.counter.counterNumber);
   const show = useSelector((state) => state.counter.showCounter);
   const dispatch = useDispatch();
-  console.log(counter, show);
 
   const incrementHandler = () => {
     dispatch(counterActions.increment());

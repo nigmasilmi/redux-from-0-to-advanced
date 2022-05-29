@@ -81,6 +81,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(CounterClass);
 
 ```js
 createSlice({
+  // this name  creates a unique identifier for RTK
+  // this is not the name we use when working with useSelector
   name: "counter",
   initialState: ceroState,
   reducers: {
