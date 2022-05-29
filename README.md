@@ -1,4 +1,4 @@
-// Vanilla
+# Vanilla
 
 ## Creating
 
@@ -46,3 +46,15 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(CounterClass);
 ```
+
+## Correct use of the returned state in the Reducer
+
+- out of the box, with just plain Redux, the pieces of state doesn't merge, so always take into account all the pieces of state when returning
+- never mutate the state, return a new one
+
+## Redux challenges
+
+- types must be managed as constants to avoid mistyping
+- pieces states can and must be separated and the combine the reducers into a single one
+- enhancers are recommended to manage middlewares and dev tools to debug the store
+- all those challenges are no loger "so challenging" by using Redux Toolkit
