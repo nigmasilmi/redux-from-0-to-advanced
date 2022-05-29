@@ -58,3 +58,106 @@ export default connect(mapStateToProps, mapDispatchToProps)(CounterClass);
 - pieces states can and must be separated and the combine the reducers into a single one
 - enhancers are recommended to manage middlewares and dev tools to debug the store
 - all those challenges are no loger "so challenging" by using Redux Toolkit
+
+# Redux Toolkit
+
+[go](https://redux-toolkit.js.org/)
+
+- `npm i @reduxjs/toolkit`
+- if the project already has the redux library, uninstall because RTK has it already
+
+## Refactor
+
+- in index.js of the store, import configureStore from @reduxjs/toolkit
+  <small> <br />
+  "(We recommend using the configureStore method of the @reduxjs/toolkit package, which replaces createStore.)"</small><br />
+  `const store = configureStore(counterReducer);`
+
+- in index.js of the store, import createSlice from RTK
+
+## Adding State Slices
+
+- slices are parts of the state which refers to different business logic (although is up to us)
+
+```js
+createSlice({
+  name: "counter",
+  initialState: ceroState,
+  reducers: {
+    increment(state) {}, // will receive the action also, but
+    decrement(state) {}, // we use it only when needed
+    increase(state, action) {
+      state.counter = state.counter + action.amount;
+    },
+    toggleCounter(state) {
+      state.showCounter = !state.showCounter;
+    },
+  },
+});
+```
+
+- with RTK, this is valid
+
+```js
+ increment(state) {
+   state.counter++
+ }
+```
+
+why? because RTK calls a sub library called immer which in turn clones the state and ensures its unmmutable nature
+
+## How to use the slice?
+
+- register the slice with configureStore and pass a configuration object
+
+```js
+const store = configureStore({
+  reducer: { counterSlice },
+});
+```
+
+- or if we had multiple slices of the global state:
+
+```js
+const store = configureStore({
+  reducer: {
+    counter: counterSlice.reducer,
+    ui: uiSlice.reducer,
+    auth: authSlice.reducer,
+  },
+});
+```
+
+## How do we dispatch actions?
+
+- with the use of createSlice(), RTK generates automatically an action object based on the method options
+- we access them by<br/> `<the-returned-slice>.actions.<the-name-of-the-method>`
+- so:
+
+  1.  export the actions
+
+      ```js
+      export const counterActions = counterSlice.actions;
+      ```
+
+  2.  import the actions
+
+      ```js
+      import { counterActions } from "../store";
+      ```
+
+  3.  access and execute the specific method
+
+      ```js
+      const incrementHandler = () => {
+        dispatch(counterActions.increment());
+      };
+      ```
+
+- if the action includes a payload
+  ```js
+  const increaseHandler = () => {
+    // will generate the action {type:'increase', payload:10}
+    dispatch(counterActions.increase(10));
+  };
+  ```
